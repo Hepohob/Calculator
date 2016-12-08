@@ -13,10 +13,17 @@ class ViewController: UIViewController {
     @IBOutlet private var display: UILabel!
     
     private var userIsInTheMiddleOfTyping = false
+    private var dot = false
     private var brain = CalculatorBrain()
     
     @IBAction private func touchDigit(_ sender: UIButton) {
-        if let digit = sender.currentTitle {
+        if let digit = sender.currentTitle{
+            if digit == "." {
+                if dot {
+                    return
+                }
+                dot = true
+            }
             if let textCurrentlyInDisplay = display.text {
                 if userIsInTheMiddleOfTyping {
                     display.text = textCurrentlyInDisplay + digit
