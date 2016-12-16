@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    var savedProgram:CalculatorBrain.PropertyList?
+    
     @IBOutlet private var display: UILabel!
     
     private var userIsInTheMiddleOfTyping = false
@@ -46,7 +48,22 @@ class ViewController: UIViewController {
             brain.performOperation(symbol: mathematicalSymbol)
         }
         displayValue = brain.result
+        if displayValue == 0.0 {
+            userIsInTheMiddleOfTyping = false
+        }
     }
+    
+    @IBAction func save() {
+        savedProgram = brain.program
+    }
+    
+    @IBAction func read() {
+        if let sp = savedProgram {
+            brain.program = sp
+            displayValue = brain.result
+        }
+    }
+    
     
 }
 
